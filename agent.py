@@ -27,7 +27,6 @@ class Agent:
         for action in config:
             if action["module"] == "system_info":
                 module_name = action["module"]
-                print(module_name)
                 # Clone the repository to a local directory
                 local_directory = "temp_directory"
                 repo = git.Repo.clone_from(self.repository_url, local_directory)
