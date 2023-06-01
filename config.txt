@@ -1,6 +1,6 @@
 [
     {
-        "module": "system_info.py",
+        "module": "system_info",
         "action": "collect"
     }
 ]
