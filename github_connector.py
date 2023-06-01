@@ -34,7 +34,7 @@ class GitHubConnector:
             repo = git.Repo.clone_from(self.repository_url, local_directory)
 
             config = None
-            config_file_path = os.path.join(local_directory, "config.txt")
+            config_file_path = os.path.join(local_directory, "config", "config.txt")
             if os.path.exists(config_file_path):
                 with open(config_file_path, "r") as file:
                     config = json.load(file)

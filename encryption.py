@@ -13,11 +13,11 @@ class Encryption:
         with open(file_path, "wb") as file:
             file.write(encrypted_data)
 
-    def decrypt_file(self, file_path):
+    def decrypt_file(self, file_path, output_path):
         with open(file_path, "rb") as file:
             encrypted_data = file.read()
         decrypted_data = self.fernet.decrypt(encrypted_data)
-        with open(file_path, "wb") as file:
+        with open(output_path, "wb") as file:
             file.write(decrypted_data)
     
     # def __init__(self, key_path):

