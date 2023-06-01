@@ -1,26 +1,32 @@
-import git
-import os
-import json
-import shutil 
+# from modules.hardware_inventory import HardwareInventoryModule
+
+# myhardware = HardwareInventoryModule()
+# print(myhardware.collect_linux_hardware_data())
+
+# import git
+# import os
+# import json
+# import shutil 
 
 
-def get_config():
-    local_directory = "temp_directory"
-    repo = git.Repo.clone_from("https://github.com/ErniedM/agent-framework2", local_directory)
 
-    config = None
-    config_file_path = os.path.join(local_directory, "config", "config.txt")
-    print(config_file_path)
-    if os.path.exists(config_file_path):
-        with open(config_file_path, "r") as file:
-            config = json.load(file)
+# def get_config():
+#     local_directory = "temp_directory"
+#     repo = git.Repo.clone_from("https://github.com/ErniedM/agent-framework2", local_directory)
 
-    repo.close()
-    shutil.rmtree(local_directory)
+#     config = None
+#     config_file_path = os.path.join(local_directory, "config", "config.txt")
+#     print(config_file_path)
+#     if os.path.exists(config_file_path):
+#         with open(config_file_path, "r") as file:
+#             config = json.load(file)
 
-    return config
+#     repo.close()
+#     shutil.rmtree(local_directory)
 
-print(get_config())
+#     return config
+
+# print(get_config())
 
 # import platform
 # import subprocess
@@ -51,30 +57,30 @@ print(get_config())
 
 
 
-# from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet
 
-# class Encryption:
-#     def __init__(self, key_path):
-#         with open(key_path, "rb") as file:
-#             key = file.read()
-#         self.fernet = Fernet(key)
+class Encryption:
+    def __init__(self, key_path):
+        with open(key_path, "rb") as file:
+            key = file.read()
+        self.fernet = Fernet(key)
 
-#     def encrypt_file(self, file_path):
-#         with open(file_path, "rb") as file:
-#             data = file.read()
-#         encrypted_data = self.fernet.encrypt(data)
-#         with open(file_path, "wb") as file:
-#             file.write(encrypted_data)
+    def encrypt_file(self, file_path):
+        with open(file_path, "rb") as file:
+            data = file.read()
+        encrypted_data = self.fernet.encrypt(data)
+        with open(file_path, "wb") as file:
+            file.write(encrypted_data)
 
-#     def decrypt_file(self, file_path):
-#         with open(file_path, "rb") as file:
-#             encrypted_data = file.read()
-#         decrypted_data = self.fernet.decrypt(encrypted_data)
-#         with open(file_path, "wb") as file:
-#             file.write(decrypted_data)
+    def decrypt_file(self, file_path):
+        with open(file_path, "rb") as file:
+            encrypted_data = file.read()
+        decrypted_data = self.fernet.decrypt(encrypted_data)
+        with open(file_path, "wb") as file:
+            file.write(decrypted_data)
 
-# encryption = Encryption("key.txt")
-# encryption.encrypt_file("modules/software_inventory.py")
+encryption = Encryption("key.txt")
+encryption.encrypt_file("modules/hardware_inventory.py")
 
 
 
