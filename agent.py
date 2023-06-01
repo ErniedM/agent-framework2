@@ -25,7 +25,8 @@ class Agent:
 
     def execute_actions(self, config):
         for action in config:
-            module_name = action["module"]
+            module_name = action["module_name"]
+            class_name = action["class_name"]
             # Clone the repository to a local directory
             local_directory = "temp_directory"
             repo = git.Repo.clone_from(self.repository_url, local_directory)
@@ -38,8 +39,9 @@ class Agent:
 
                 # Import the module and perform the necessary actions
                 module = importlib.import_module(f"modules.{module_name}_decrypted")
-                module = module.SystemInfoModule()
-                data = module.collect_data()
+                module_class = getattr(module, class_name)
+                module_instance = module_class()
+                data = module_instance.collect_data()
                 # Remove the local directory
                 repo.close()
                 shutil.rmtree(local_directory)
