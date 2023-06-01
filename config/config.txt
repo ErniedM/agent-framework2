@@ -4,7 +4,7 @@
         "action": "collect"
     },
     {
-        "module": "software_inventory"
+        "module": "software_inventory",
         "action": "collect"
     }
 ]
