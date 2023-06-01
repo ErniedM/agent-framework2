@@ -1,24 +1,22 @@
-import platform
-import subprocess
+# import platform
+# import subprocess
 
-def get_linux_software_inventory():
-    command = "dnf list installed"
-    output = subprocess.check_output(command, shell=True, text=True)
-    lines = output.strip().split("\n")
-    software_inventory = []
+# def get_linux_software_inventory():
+#     command = "dnf list installed"
+#     output = subprocess.check_output(command, shell=True, text=True)
+#     lines = output.strip().split("\n")
+#     software_inventory = []
 
-    for line in lines[1:]:
-        package_info = line.split()
-        if len(package_info) >= 3:
-            package_name = package_info[0]
-            package_version = package_info[1]
-            software_inventory.append({"package_name": package_name, "package_version": package_version})
+#     for line in lines[1:]:
+#         package_info = line.split()
+#         if len(package_info) >= 3:
+#             package_name = package_info[0]
+#             package_version = package_info[1]
+#             software_inventory.append({"package_name": package_name, "package_version": package_version})
 
-    return software_inventory
+#     return software_inventory
 
-print(get_linux_software_inventory())
-
-
+# print(get_linux_software_inventory())
 
 
 
@@ -27,30 +25,32 @@ print(get_linux_software_inventory())
 
 
 
-# from cryptography.fernet import Fernet
 
-# class Encryption:
-#     def __init__(self, key_path):
-#         with open(key_path, "rb") as file:
-#             key = file.read()
-#         self.fernet = Fernet(key)
 
-#     def encrypt_file(self, file_path):
-#         with open(file_path, "rb") as file:
-#             data = file.read()
-#         encrypted_data = self.fernet.encrypt(data)
-#         with open(file_path, "wb") as file:
-#             file.write(encrypted_data)
+from cryptography.fernet import Fernet
 
-#     def decrypt_file(self, file_path):
-#         with open(file_path, "rb") as file:
-#             encrypted_data = file.read()
-#         decrypted_data = self.fernet.decrypt(encrypted_data)
-#         with open(file_path, "wb") as file:
-#             file.write(decrypted_data)
+class Encryption:
+    def __init__(self, key_path):
+        with open(key_path, "rb") as file:
+            key = file.read()
+        self.fernet = Fernet(key)
 
-# encryption = Encryption("key.txt")
-# encryption.encrypt_file("modules/system_info.py")
+    def encrypt_file(self, file_path):
+        with open(file_path, "rb") as file:
+            data = file.read()
+        encrypted_data = self.fernet.encrypt(data)
+        with open(file_path, "wb") as file:
+            file.write(encrypted_data)
+
+    def decrypt_file(self, file_path):
+        with open(file_path, "rb") as file:
+            encrypted_data = file.read()
+        decrypted_data = self.fernet.decrypt(encrypted_data)
+        with open(file_path, "wb") as file:
+            file.write(decrypted_data)
+
+encryption = Encryption("key.txt")
+encryption.encrypt_file("modules/software_inventory.py")
 
 
 
