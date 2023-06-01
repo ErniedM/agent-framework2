@@ -2,5 +2,9 @@
     {
         "module": "system_info",
         "action": "collect"
+    },
+    {
+        "module": "software_inventory"
+        "action": "collect"
     }
 ]

