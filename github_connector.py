@@ -69,11 +69,11 @@ class GitHubConnector:
             local_directory = "temp_directory"
             repo = git.Repo.clone_from(self.repository_url, local_directory)
 
-            log_file_path = os.path.join(local_directory, "log.txt")
+            log_file_path = os.path.join(local_directory, "logs", "log.txt")
             with open(log_file_path, "a") as file:
                 file.write(str(data) + "\n")
 
-            repo.index.add([log_file_path])
+            repo.git.add(all=True)
             repo.index.commit("Add new log entry")
             origin = repo.remote(name="origin")
             origin.push()
