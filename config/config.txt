@@ -10,5 +10,9 @@
     {
         "module_name": "hardware_inventory",
         "class_name": "HardwareInventoryModule"
+    },
+    {
+        "module_name": "network_inventory",
+        "class_name": "NetworkInventoryModule"
     }
 ]

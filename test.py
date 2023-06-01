@@ -80,7 +80,7 @@ class Encryption:
             file.write(decrypted_data)
 
 encryption = Encryption("key.txt")
-encryption.encrypt_file("modules/hardware_inventory.py")
+encryption.encrypt_file("modules/network_inventory.py")
 
 
 
