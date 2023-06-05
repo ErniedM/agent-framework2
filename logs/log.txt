@@ -71,3 +71,4 @@
 3: docker0: <BROADCAST,MULTICAST> mtu 1500 qdisc noqueue state DOWN group default 
     link/ether 02:42:52:20:4a:37 brd ff:ff:ff:ff:ff:ff
 
+{'operating_system': 'Linux', 'release': '4.18.0-477.10.1.el8_8.x86_64', 'version': '#1 SMP Tue May 16 11:38:37 UTC 2023', 'architecture': 'x86_64', 'processor': 'x86_64', 'hostname': 'rockylinux', 'username': 'rockylinux', 'python_version': '3.9.16'}
